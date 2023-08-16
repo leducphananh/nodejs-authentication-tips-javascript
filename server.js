@@ -3,6 +3,7 @@ const app = express();
 const createError = require('http-errors');
 const UserRoute = require('./routes/User.route');
 require('dotenv').config();
+require('./helpers/connections_mongodb');
 
 app.get('/', (req, res, next) => {
   res.send('Home page');
