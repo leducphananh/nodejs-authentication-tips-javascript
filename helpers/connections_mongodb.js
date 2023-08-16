@@ -1,22 +1,15 @@
 const mongoose = require('mongoose');
 
-const connection = mongoose.createConnection(process.env.DB);
+mongoose.connect(process.env.DB, { useNewUrlParser: true });
 
-connection.on('connected', function () {
+mongoose.connection.on('connected', function () {
   console.log(`Mongodb::: connected:::${this.name}`);
 });
 
-connection.on('disconnected', function () {
+mongoose.connection.on('disconnected', function () {
   console.log(`Mongodb::: disconnected:::${this.name}`);
 });
 
-connection.on('error', function (error) {
+mongoose.connection.on('error', function (error) {
   console.log(`Mongodb::: error:::${JSON.stringify(error)}`);
 });
-
-process.on('SIGINT', async () => {
-  await connection.close();
-  process.exit(0);
-});
-
-module.exports = connection;
