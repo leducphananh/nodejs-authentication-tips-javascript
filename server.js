@@ -3,7 +3,8 @@ const app = express();
 const createError = require('http-errors');
 const UserRoute = require('./routes/User.route');
 require('dotenv').config();
-require('./helpers/connections_mongodb');
+require('./connections/connections_mongodb');
+const { STATUS_CODE } = require('./helpers/helpers');
 
 app.get('/', (req, res, next) => {
   res.send('Home page');
@@ -18,8 +19,8 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.json({
-    status: err.status || 500,
+  res.status(err.status || STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+    status: err.status || STATUS_CODE.INTERNAL_SERVER_ERROR,
     message: err.message,
   });
 });

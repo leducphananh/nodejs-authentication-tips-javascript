@@ -1,21 +1,29 @@
 const express = require('express');
 const route = express.Router();
 const createError = require('http-errors');
+const { STATUS_CODE } = require('../helpers/helpers');
 
 const User = require('../models/User.model');
+const { userValidate } = require('../helpers/validation');
 
 route.post('/register', async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      throw createError.BadRequest();
+
+    const { error } = userValidate(req.body);
+
+    if (error) {
+      throw createError(STATUS_CODE.BAD_REQUEST, error);
     }
 
     const isEmailExisted = await User.findOne({
       username: email,
     });
     if (isEmailExisted) {
-      throw createError.Conflict(`${email} is already been registered`);
+      throw createError(
+        STATUS_CODE.BAD_REQUEST,
+        `${email} is already been registered`
+      );
     }
 
     const createdUser = await User.create({
@@ -23,7 +31,7 @@ route.post('/register', async (req, res, next) => {
       password,
     });
 
-    return res.status(201).json({
+    return res.status(STATUS_CODE.CREATED).json({
       user: createdUser,
     });
   } catch (error) {
