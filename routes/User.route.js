@@ -17,7 +17,7 @@ route.post('/register', async (req, res, next) => {
     }
 
     const isEmailExisted = await User.findOne({
-      username: email,
+      email,
     });
     if (isEmailExisted) {
       throw createError(
@@ -26,13 +26,14 @@ route.post('/register', async (req, res, next) => {
       );
     }
 
-    const createdUser = await User.create({
-      username: email,
+    const user = new User({
+      email,
       password,
     });
+    const savedUser = await user.save();
 
     return res.status(STATUS_CODE.CREATED).json({
-      user: createdUser,
+      user: savedUser,
     });
   } catch (error) {
     next(error);

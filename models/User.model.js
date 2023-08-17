@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+const createError = require('http-errors');
 
 const UserSchema = new Schema({
-  username: {
+  email: {
     type: String,
     lowercase: true,
     unique: true,
@@ -12,6 +14,17 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+});
+
+UserSchema.pre('save', async function (next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashPassword;
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = mongoose.model('user', UserSchema);
