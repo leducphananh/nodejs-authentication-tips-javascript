@@ -5,6 +5,7 @@ const { STATUS_CODE } = require('../helpers/helpers');
 
 const User = require('../models/User.model');
 const { userValidate } = require('../helpers/validation');
+const { signAccessToken } = require('../helpers/jwt_service');
 
 route.post('/register', async (req, res, next) => {
   try {
@@ -63,7 +64,10 @@ route.post('/login', async (req, res, next) => {
       throw createError.Unauthorized();
     }
 
-    res.send(user);
+    const accessToken = await signAccessToken(user._id);
+    res.json({
+      accessToken,
+    });
   } catch (error) {
     next(error);
   }
