@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-const createError = require('http-errors');
 
 const UserSchema = new Schema({
   email: {
@@ -26,5 +25,11 @@ UserSchema.pre('save', async function (next) {
     next(error);
   }
 });
+
+UserSchema.methods.checkPassword = function (password) {
+  try {
+    return bcrypt.compare(password, this.password);
+  } catch (error) {}
+};
 
 module.exports = mongoose.model('user', UserSchema);
