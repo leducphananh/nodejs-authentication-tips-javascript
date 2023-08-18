@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const createError = require('http-errors');
 const UserRoute = require('./routes/User.route');
+const AuthRoute = require('./routes/Auth.route');
 require('dotenv').config();
 require('./connections/connections_mongodb');
 const { STATUS_CODE } = require('./helpers/helpers');
@@ -12,7 +13,10 @@ app.get('/', (req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/user', UserRoute);
+
+// Routes
+app.use('/users', UserRoute);
+app.use('/auth', AuthRoute);
 
 app.use((req, res, next) => {
   next(createError.NotFound('This route does not exist.'));
