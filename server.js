@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const createError = require('http-errors');
+
 const UserRoute = require('./routes/User.route');
 const AuthRoute = require('./routes/Auth.route');
+const { STATUS_CODE } = require('./helpers/helpers');
+
 require('dotenv').config();
 require('./connections/connections_mongodb');
-const { STATUS_CODE } = require('./helpers/helpers');
+require('./connections/connections_redis');
 
 app.get('/', (req, res, next) => {
   res.send('Home page');

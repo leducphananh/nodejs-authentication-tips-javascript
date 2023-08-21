@@ -13,3 +13,8 @@ mongoose.connection.on('disconnected', function () {
 mongoose.connection.on('error', function (error) {
   console.log(`Mongodb::: error:::${JSON.stringify(error)}`);
 });
+
+process.on('SIGINT', async () => {
+  await mongoose.connection.close();
+  process.exit(0);
+});
