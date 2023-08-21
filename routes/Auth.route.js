@@ -10,6 +10,7 @@ const {
   signRefreshToken,
   verifyRefreshToken,
 } = require('../helpers/jwt_service');
+const client = require('../connections/connections_redis');
 
 route.post('/register', async (req, res, next) => {
   try {
@@ -96,8 +97,27 @@ route.post('/refresh-token', async (req, res, next) => {
   }
 });
 
-route.post('/logout', (req, res, next) => {
-  res.send('logout function');
+route.post('/logout', async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      throw createError.BadRequest();
+    }
+
+    const { userId } = await verifyRefreshToken(refreshToken);
+    client
+      .del(userId.toString())
+      .then(() => {
+        res.json({
+          message: 'Logout successful!',
+        });
+      })
+      .catch((err) => {
+        if (err) throw createError.InternalServerError();
+      });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = route;

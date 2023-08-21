@@ -28,6 +28,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRmMTk2YzdmZWFkZjIxMzAwZmZiNjgiLCJpYXQiOjE2OTI2MDI4MjQsImV4cCI6MTcyNDE2MDQyNH0.K4NAfLUGi-Oh18ZpEYkAEc4EOD-14_zAfc9Im4vz0Co"
+}
 
 ###
 GET http://localhost:3000/users
