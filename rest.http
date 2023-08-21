@@ -14,7 +14,7 @@ POST http://localhost:3000/auth/refresh-token
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRmMTk2YzdmZWFkZjIxMzAwZmZiNjgiLCJpYXQiOjE2OTI1OTg1OTIsImV4cCI6MTcyNDE1NjE5Mn0.lFGuM7XsIsKa4DykfUWW8mCS4i8stcDEpoJ9xMSvvOA"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRmMTk2YzdmZWFkZjIxMzAwZmZiNjgiLCJpYXQiOjE2OTI2MDE3NDEsImV4cCI6MTcyNDE1OTM0MX0.xkBlvOlS0aySnBCWbkYq_2UPKZ1sCC5sdI0Gdyip6wM"
 }
 
 ###
@@ -31,4 +31,4 @@ POST http://localhost:3000/auth/logout
 
 ###
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRmMTk2YzdmZWFkZjIxMzAwZmZiNjgiLCJpYXQiOjE2OTI1OTgzNTcsImV4cCI6MTY5MjYwMTk1N30._Zr10G-M8wMqLSjjUWjS1x-8t9OBEPfiwGoIOcIf_34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRmMTk2YzdmZWFkZjIxMzAwZmZiNjgiLCJpYXQiOjE2OTI2MDA4MzksImV4cCI6MTY5MjYwMDg5OX0.kax1qeFfKTdtZWNfLISZJCxUZDnZFsoa6azLK-NGhLQ
